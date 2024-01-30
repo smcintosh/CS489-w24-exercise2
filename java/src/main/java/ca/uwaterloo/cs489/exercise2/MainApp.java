@@ -35,7 +35,15 @@ public class MainApp {
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+        if (Files.isRegularFile(entry)) {
+            // Attempt to delete the file
+            Files.delete(entry);
+            logger.info(String.format("Job %d deleted.\n", job.getInput()));
+        }
       }
+
+      Files.delete(dir);
+      logger.info(dir.getFileName().toString() + " deleted\n");
     } catch (IOException e) {
       e.printStackTrace();
     }
