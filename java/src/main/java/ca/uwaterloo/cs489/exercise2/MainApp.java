@@ -1,6 +1,7 @@
 package ca.uwaterloo.cs489.exercise2;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -35,7 +36,16 @@ public class MainApp {
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+        // remove the file
+        File jobFile = job.getFile();
+        String jobFilePath = jobFile.getPath();
+        jobFile.delete();
+        logger.info(String.format("Removed job %d from %s\n", job.getInput(), jobFilePath));
       }
+
+      Files.delete(dir);
+      logger.info(String.format("Removed job directory: %s\n", dir));
+
     } catch (IOException e) {
       e.printStackTrace();
     }
