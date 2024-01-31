@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.File;
 
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -33,9 +34,16 @@ public class MainApp {
 
       // Iterate over all of the files in the directory, creating a job for each
       for (Path entry : ds) {
-        Job job = new Job(entry.toFile());
+        File f = entry.toFile();
+        String fname = f.getName();
+        Job job = new Job(f);
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+        f.delete();
+        logger.info(String.format("Job file %s deleted\n", fname));
       }
+      String dirname = dir.toString();
+      Files.delete(dir);
+      logger.info(String.format("Directory %s deleted\n", dirname));
     } catch (IOException e) {
       e.printStackTrace();
     }
