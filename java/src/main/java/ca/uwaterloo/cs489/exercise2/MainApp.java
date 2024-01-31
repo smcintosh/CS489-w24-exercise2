@@ -35,7 +35,11 @@ public class MainApp {
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+        Files.delete(entry);
+        logger.info(String.format("Job %d deleted because of completion\n", job.getInput()));
       }
+      Files.delete(dir);
+      logger.info(String.format("Directory %s deleted because of completion\n", dir.toString()));
     } catch (IOException e) {
       e.printStackTrace();
     }
