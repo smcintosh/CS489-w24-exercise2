@@ -32,4 +32,6 @@ public class Job {
   }
 
   public int getInput() { return this.input; }
+
+  public File getFile() {return this.file; }
 }
