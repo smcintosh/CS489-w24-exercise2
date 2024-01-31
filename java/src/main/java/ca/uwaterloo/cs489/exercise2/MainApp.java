@@ -34,8 +34,13 @@ public class MainApp {
       // Iterate over all of the files in the directory, creating a job for each
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
-        logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+        int id = job.getInput();
+        logger.info(String.format("Job %d yields %d\n", id, job.processJob()));
+        entry.toFile().delete();
+        logger.info(String.format("Removed file for job %d", id));
       }
+      Files.delete(dir); 
+      logger.info("Removed directory");
     } catch (IOException e) {
       e.printStackTrace();
     }
