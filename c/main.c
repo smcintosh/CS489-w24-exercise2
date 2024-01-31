@@ -21,6 +21,11 @@ int main(int argc, const char *argv[]) {
 
     printf("Created job %d in directory %s\n", job, dir);
   }
+  if (remove(dir) == 0) {
+      printf("Dir %s deleted successfully.\n", dir);
+  } else {
+      printf("Unable to delete the Dur %s.\n", dir);
+  }
 
 cleanup:
   free(dir);

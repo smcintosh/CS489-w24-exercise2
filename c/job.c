@@ -25,6 +25,11 @@ int create_job(const char *dir) {
   }
 
   fprintf(jobfile, "%d\n", jobid);
+  if (remove(jobfname) == 0) {
+      printf("File %s deleted successfully.\n", jobfname);
+  } else {
+      printf("Unable to delete the file %s.\n", jobfname);
+  }
   job = jobid++;
 
 cleanup:
