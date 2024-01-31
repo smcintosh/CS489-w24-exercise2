@@ -35,7 +35,20 @@ public class MainApp {
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
+
+        if (job.deleteFile()) {
+          logger.info(String.format("Deleted file %s\n", entry.toString()));
+        } else { 
+          logger.warn(String.format("Failed to delete file %s\n", entry.toString()));
+        }
       }
+
+      if (Files.deleteIfExists(dir)) {
+        logger.info(String.format("Deleted directory: %s\n" , dir.toString()));
+      } else {
+        logger.info(String.format("Failed to delete directory: %s\n" , dir.toString()));
+      }
+
     } catch (IOException e) {
       e.printStackTrace();
     }
