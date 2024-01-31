@@ -5,7 +5,7 @@
 #include "config.h"
 
 /*
- * /* Get the working directory from user input in a very insecure fashion
+ * Get the working directory from user input in a very insecure fashion
  */
 char *get_dir() {
   char *dir = calloc(PATH_MAXLEN, sizeof(char));
