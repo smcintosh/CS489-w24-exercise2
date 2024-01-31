@@ -32,4 +32,8 @@ public class Job {
   }
 
   public int getInput() { return this.input; }
+
+  public boolean deleteJobFile(){
+    return this.file.delete();
+  }
 }
