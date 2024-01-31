@@ -36,7 +36,7 @@ public class MainApp {
       for (Path entry : ds) {
         Job job = new Job(entry.toFile());
         logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
-        // remove the file
+        // getting the file handle directory from the job to ensure it is a regular file
         File jobFile = job.getFile();
         String jobFilePath = jobFile.getPath();
         jobFile.delete();
