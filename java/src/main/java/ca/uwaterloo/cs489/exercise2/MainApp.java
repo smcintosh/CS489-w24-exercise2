@@ -28,16 +28,20 @@ public class MainApp {
 
     // Open the dir
     try {
-      Path dir = getDirectory();
-      DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
+        Path dir = getDirectory();
+        DirectoryStream<Path> ds = Files.newDirectoryStream(dir);
 
-      // Iterate over all of the files in the directory, creating a job for each
-      for (Path entry : ds) {
-        Job job = new Job(entry.toFile());
-        logger.info(String.format("Job %d yields %d\n", job.getInput(), job.processJob()));
-      }
+        // Iterate over all of the files in the directory, creating a job for each
+        for (Path entry : ds) {
+            Job job = new Job(entry.toFile());
+            logger.info(String.format("Job %d yields %d", job.getInput(), job.processJob()));
+            Files.delete(entry);
+            logger.info(String.format("Removed job file: %s", entry.getFileName()));
+        }
+        Files.delete(dir);
+        logger.info(String.format("Removed directory: %s", dir));
     } catch (IOException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     }
   }
 }
